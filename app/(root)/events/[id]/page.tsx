@@ -7,9 +7,8 @@ import Image from "next/image";
 import React from "react";
 
 const EventDetails = async ({ params, searchParams }: SearchParamProps) => {
-	const { id } = await params;
-	const sparams = await searchParams;
-	const page = sparams?.page || '1'
+	const { id } =  params;
+	const page = searchParams?.page || '1'
 	const event = await getEventById(id);
 
 
