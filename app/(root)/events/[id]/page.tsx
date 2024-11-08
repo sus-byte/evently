@@ -6,12 +6,15 @@ import { SearchParamProps } from '@/types'
 import Image from 'next/image';
 
 const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) => {
-  const event = await getEventById(id);
+	const event = await getEventById(id);
+	
+	const sparams = await searchParams;
+  const page = sparams?.page ? (Array.isArray(sparams.page) ? sparams.page[0] : sparams.page) : '1';
 
   const relatedEvents = await getRelatedEventsByCategory({
     categoryId: event.category._id,
     eventId: event._id,
-    page: searchParams.page as string,
+    page: page as string,
   })
 
   return (
@@ -89,7 +92,7 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
           emptyStateSubtext="Come back later"
           collectionType="All_Events"
           limit={3}
-          page={searchParams.page as string}
+          page={page as string}
           totalPages={relatedEvents?.totalPages}
         />
     </section>
