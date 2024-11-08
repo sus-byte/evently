@@ -6,8 +6,11 @@ import { SearchParamProps } from "@/types";
 import Image from "next/image";
 import React from "react";
 
-const EventDetails = async ({ params: {id}, searchParams }: SearchParamProps) => {
-	const page = searchParams?.page || '1'
+const EventDetails = async ({ params, searchParams }: SearchParamProps) => {
+	
+	const { id } = await params;
+	const sparams = await searchParams;
+	const page = sparams?.page ? (Array.isArray(sparams.page) ? sparams.page[0] : sparams.page) : '1';
 	const event = await getEventById(id);
 
 
